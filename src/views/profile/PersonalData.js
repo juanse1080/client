@@ -9,7 +9,8 @@ import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
 import Chip from '@material-ui/core/Chip';
 
-import show from '../../utils/Ucwords'
+import timeFormat from '../../utils/Time';
+import show from '../../utils/Ucwords';
 
 const useStyles = makeStyles(theme => ({
   listChip: {
@@ -62,14 +63,7 @@ function ControlledExpansionPanels(props) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState('panel4');
 
-  const dateFormat = (date) => {
-    console.log(date);
-    return new Date(date).toLocaleDateString("es-ES", { 
-      year: 'numeric', 
-      month: 'long', 
-      day: 'numeric' 
-    })
-  }
+  
 
   const handleChange = panel => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
@@ -92,7 +86,7 @@ function ControlledExpansionPanels(props) {
             <Grid item xs={4}><Typography className={classes.secondaryHeading}>Last name:</Typography></Grid>
             <Grid item xs={8}>{show(props.user.last_name)}</Grid>
             <Grid item xs={4}><Typography className={classes.secondaryHeading}>Birthday:</Typography></Grid>
-            <Grid item xs={8}>{dateFormat(props.user.birth)}</Grid>
+            <Grid item xs={8}>{timeFormat(props.user.birth)}</Grid>
           </Grid>
         </ExpansionPanelDetails>
       </ExpansionPanel>

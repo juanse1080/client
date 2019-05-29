@@ -39,7 +39,7 @@ const data = [
 const user = {
     first_name: 'juan sebastian',
     last_name: 'marcon caballero',
-    birth: '14/09/1997',
+    birth: new Date(),
     email: 'juanmarcon1080@gmail.com',
     role: 'admin',
     education: 'bachiller:profesional:maestria',
