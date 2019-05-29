@@ -5,15 +5,15 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
-import red from '@material-ui/core/colors/red';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
+import red from '@material-ui/core/colors/red';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import PersonalData from './PersonalData'
-import SlideReact from './SlideReact';
+import CollapseProduct from './CollapseProduct';
+import Hidden from '@material-ui/core/Hidden';
+import User from '../../data';
+import show from '../../utils/Ucwords'
 
 const styles = theme => ({
   root: {
@@ -30,14 +30,13 @@ const styles = theme => ({
   avatar: {
     backgroundColor: red[500],
   },  
+  name: {
+    color: '#fff',
+  }
 });
 
 function FullWidthGrid(props) {
   const { classes } = props;
-  const [values, setValues] = React.useState({
-    amount: '',
-  });
-
   return (
     <Container fixed>
       <div className={classes.root}>
@@ -47,24 +46,30 @@ function FullWidthGrid(props) {
               <CardActionArea>
                 <CardMedia
                   className={classes.media}
-                  image="https://files.gamebanana.com/img/ss/wares/57031b385348a.jpg"
+                  image={User.photo}
                   title="Contemplative Reptile"
-                />
-                <List>
-                  <ListItem>
-                    <ListItemText primary="Juanse1080"/>
-                  </ListItem>
-                </List>
+                >
+                </CardMedia>
               </CardActionArea>
             </Card>
+            <Card>
+              <CardActionArea>
+                <CardContent>
+                  <Typography className={classes.heading}>{show(User.first_name)} {show(User.last_name)}</Typography>
+                </CardContent>
+              </CardActionArea>
+            </Card>
+            <Hidden only={['sm', 'xs']}>
+              <CollapseProduct projects={User.projects}></CollapseProduct>
+            </Hidden>
           </Grid>
-          
           <Grid item xs={12} sm={12} md={6} lg={8}>
-            <PersonalData></PersonalData>
-          </Grid>
-          <Grid item xs={12} sm={12} md={6} lg={4}>
-            <SlideReact></SlideReact>
-          </Grid>
+            <PersonalData user={User}></PersonalData>
+            <Hidden only={['md', 'lg', 'xl']}>
+              <CollapseProduct projects={User.projects}></CollapseProduct>
+            </Hidden>
+          </Grid> 
+          
         </Grid>
       </div>
     </Container>

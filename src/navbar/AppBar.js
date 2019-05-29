@@ -11,9 +11,9 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import ListItemBar from './ListItemBar';
 
-import Profile from '../views/Profile'
+import Profile from '../views/profile/Profile'
 
-const drawerWidth = 240;
+const drawerWidth = 200;
 
 const useStyles = makeStyles(theme => ({
   root: {
