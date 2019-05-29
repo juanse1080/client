@@ -2,16 +2,31 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import SaveIcon from '@material-ui/icons/Save';
 import clsx from 'clsx';
-import Typography from '@material-ui/core/Typography';
 import { Editor } from '@tinymce/tinymce-react';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
+import New from './new'
 import Button from '@material-ui/core/Button';
-import CardMedia from '@material-ui/core/CardMedia';
+import Paper from '@material-ui/core/Paper';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import PhoneIcon from '@material-ui/icons/Phone';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import AddIcon from '@material-ui/icons/Add';
+import Fab from '@material-ui/core/Fab';
 
 const useStyles = makeStyles(theme => ({
     root: {
         width: '100%',
+    },
+    fab: {
+        position: 'absolute',
+        bottom: theme.spacing(5),
+        right: theme.spacing(5),
+    },
+    nav: {
+        flexGrow: 1,
+        maxWidth: 500,
     },
     input: {
         display: 'none',
@@ -32,35 +47,50 @@ const useStyles = makeStyles(theme => ({
 
 function CreateNew(props) {
     const classes = useStyles();
+    const [name, setName] = React.useState(null);
     const [title, setTitle] = React.useState(null);
     const [description, setDescription] = React.useState(null);
     const [photo, setPhoto] = React.useState(null);
+    const [value, setValue] = React.useState(0);
+
+    function handleChange(event, newValue) {
+        setValue(newValue);
+        console.log(newValue)
+    }
 
     const titleChange = (e) => {
         setTitle(e.target.getContent())
-        console.log(e.target.getContent());
     }
 
     const descriptionChange = (e) => {
         setDescription(e.target.getContent())
-        console.log(e.target.getContent());
     }
 
     const photoChange = (event) => {
-        setPhoto(event.target.value);
-        console.log(photo);
-    }
-
-    const name = () => {
-        let photo_ = (photo != null) ? photo.split('/')[2] : null;
-        return photo_
+        setPhoto(URL.createObjectURL(event.target.files[0]));
+        setName(event.target.files[0].name)
     }
 
     return (
       <div className={classes.root}>
         <Container fixed>
             <Grid container spacing={3}>
-                <Grid item xs={6}>
+                <Grid item xs={12}>
+                    <Paper square className={classes.root}>
+                        <Tabs
+                            value={value}
+                            onChange={handleChange}
+                            variant="fullWidth"
+                            indicatorColor="primary"
+                            textColor="primary"
+                        >
+                            <Tab icon={<PhoneIcon />} aria-label="Phone" />
+                            <Tab icon={<FavoriteIcon />} aria-label="Favorite" />
+                        </Tabs>
+                    </Paper>
+                </Grid>
+                {value === 0 && 
+                <Grid item xs={12}>
                     <Grid item xs={12}>
                         <h4> Title: </h4>
                         <Editor onChange={titleChange} initialValue={title}/>
@@ -70,7 +100,7 @@ function CreateNew(props) {
                         <Editor onChange={descriptionChange} initialValue={description}/>
                     </Grid>
                     <Grid item xs={12}>
-                        <h4> Photo: {photo}</h4>
+                        <h4> Photo: {name}</h4>
                         <input
                             accept="image/*"
                             id="text-button-file"
@@ -83,9 +113,17 @@ function CreateNew(props) {
                                 <SaveIcon className={clsx(classes.leftIcon, classes.iconSmall)} />
                                 Upload
                             </Button>
+                            <Fab color="secondary" aria-label="Add" className={classes.fab}>
+                                <AddIcon />
+                            </Fab>
                         </label>
                     </Grid>
-                </Grid>
+                </Grid>}
+                {value === 1 && 
+                <Grid item xs={12}>
+                    <New title={title} description={description} photo={photo} created_at={new Date()}></New>
+                </Grid>}
+                
             </Grid>
         </Container>
       </div>
