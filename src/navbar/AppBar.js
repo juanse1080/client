@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import ListItemBar from './ListItemBar';
 import New from '../views/news/new'
-
+import CreateNew from '../views/news/createNew'
 import Profile from '../views/profile/Profile'
 
 const drawerWidth = 200;
@@ -111,7 +111,8 @@ function ResponsiveDrawer(props) {
       <main className={classes.content}>
         <div className={classes.toolbar} />
         {/* <Profile/> */}
-        <New></New>
+        {/* <New></New> */}
+        <CreateNew></CreateNew>
       </main>
     </div>
   );
