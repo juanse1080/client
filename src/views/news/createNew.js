@@ -12,15 +12,16 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import PhoneIcon from '@material-ui/icons/Phone';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import AddIcon from '@material-ui/icons/Add';
+import Camera from '@material-ui/icons/CameraAlt';
 import Fab from '@material-ui/core/Fab';
+import CameraAlt from '@material-ui/icons/CameraAlt';
 
 const useStyles = makeStyles(theme => ({
     root: {
         width: '100%',
     },
     fab: {
-        position: 'absolute',
+        position: 'relative',
         bottom: theme.spacing(5),
         right: theme.spacing(5),
     },
@@ -108,22 +109,18 @@ function CreateNew(props) {
                             className={classes.input}
                             onChange={photoChange}
                         />
-                        <label htmlFor="text-button-file">
-                            <Button component="span" variant="contained" color="primary" className={classes.button}>
-                                <SaveIcon className={clsx(classes.leftIcon, classes.iconSmall)} />
-                                Upload
-                            </Button>
-                            <Fab color="secondary" aria-label="Add" className={classes.fab}>
-                                <AddIcon />
-                            </Fab>
-                        </label>
                     </Grid>
                 </Grid>}
                 {value === 1 && 
                 <Grid item xs={12}>
                     <New title={title} description={description} photo={photo} created_at={new Date()}></New>
                 </Grid>}
-                
+                {value === 0 && 
+                <label htmlFor="text-button-file" style={{'position':'relative', 'top': 'calc(100% - 56px)', 'left': 'calc(100% - 56px)'}}  >
+                    <Fab component="span" color="secondary" aria-label="Add" className={classes.fab}>
+                        <CameraAlt />
+                    </Fab>
+                </label>}
             </Grid>
         </Container>
       </div>

@@ -41,6 +41,7 @@ function MediaQuery(props) {
                     </Grid>
                 
                     <Grid item xs={12}>
+                        {props.photo ?
                         <CardMedia
                         className={classes.img}
                         image={props.photo}
@@ -50,11 +51,11 @@ function MediaQuery(props) {
                                 <Chip 
                                 icon={<TimeIcon />} 
                                 label={timeFormat(props.created_at)} 
-                                style={{'position':'relative', 'top': 'calc(100% - 32px)', 'left': 'calc(100% - 200px)'}}
+                                style={{'position':'relative', 'top': 'calc(100% - 32px)', 'left': 'calc(100% - 164px)', 'float':'left'}}
                                 />
                             </Hidden>
                             
-                        </CardMedia>
+                        </CardMedia> : ''}
                     </Grid>
                     <Grid item xs={12}>
                         <Hidden only={['md', 'lg', 'xl']}>
